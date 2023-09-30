@@ -7,4 +7,39 @@
     android:background="@drawable/gradient_background"
     tools:context=".AppActivity">
 
+    <LinearLayout
+        android:layout_width="382dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="48dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.454"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <ImageButton
+            android:id="@+id/imBtnDetail"
+            android:layout_width="75dp"
+            android:layout_height="48dp"
+            android:background="#00FFFFFF"
+            android:scaleType="centerCrop"
+            app:srcCompat="@drawable/eye_image" />
+
+        <Button
+            android:id="@+id/btnGoToSensor"
+            android:layout_width="198dp"
+            android:layout_height="48dp"
+            android:layout_weight="1"
+            android:text="Button" />
+
+        <Button
+            android:id="@+id/btnAdd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="AÑADIR" />
+    </LinearLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
