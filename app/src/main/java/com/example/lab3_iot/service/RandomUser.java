@@ -1,4 +1,4 @@
-package com.example.lab3_iot;
+package com.example.lab3_iot.service;
 
 import com.example.lab3_iot.dto.Result;
 

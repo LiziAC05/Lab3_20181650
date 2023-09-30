@@ -3,12 +3,33 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/gradient_background"
     tools:context=".fragmentos.AcelerometroFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:orientation="vertical">
 
+        <TextView
+            android:id="@+id/textView6"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="monospace"
+            android:text="Acelerómetro"
+            android:textAlignment="center"
+            android:textSize="34sp" />
+
+        <Button
+            android:id="@+id/btnGoToMagneto"
+            android:layout_width="match_parent"
+            android:layout_height="153dp"
+            android:layout_weight="1"
+            android:text="Ir a Magnetómetro" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="500dp" />
+
+    </LinearLayout>
 </FrameLayout>

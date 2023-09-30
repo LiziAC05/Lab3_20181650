@@ -8,8 +8,8 @@
     tools:context=".AppActivity">
 
     <LinearLayout
-        android:layout_width="382dp"
-        android:layout_height="48dp"
+        android:layout_width="372dp"
+        android:layout_height="54dp"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="48dp"
@@ -22,24 +22,35 @@
         <ImageButton
             android:id="@+id/imBtnDetail"
             android:layout_width="75dp"
-            android:layout_height="48dp"
+            android:layout_height="match_parent"
             android:background="#00FFFFFF"
             android:scaleType="centerCrop"
             app:srcCompat="@drawable/eye_image" />
 
         <Button
             android:id="@+id/btnGoToSensor"
-            android:layout_width="198dp"
-            android:layout_height="48dp"
-            android:layout_weight="1"
+            android:layout_width="197dp"
+            android:layout_height="wrap_content"
             android:text="Button" />
 
         <Button
             android:id="@+id/btnAdd"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="107dp"
+            android:layout_height="match_parent"
             android:layout_weight="1"
             android:text="AÑADIR" />
+
     </LinearLayout>
+
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/fragmentContainerView2"
+        android:name="androidx.navigation.fragment.NavHostFragment"
+        android:layout_width="600dp"
+        android:layout_height="615dp"
+        app:defaultNavHost="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:navGraph="@navigation/nav_graph" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
