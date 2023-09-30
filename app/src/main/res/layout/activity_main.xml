@@ -39,6 +39,7 @@
             android:id="@+id/textView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:fontFamily="monospace"
             android:text="LAB 4 - IoT"
             android:textAlignment="center"
             android:textSize="48sp"
@@ -52,9 +53,10 @@
             android:id="@+id/textView2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:fontFamily="monospace"
             android:text="Creado por : 20181650"
             android:textAlignment="center"
-            android:textSize="34sp" />
+            android:textSize="24sp" />
 
         <Space
             android:layout_width="match_parent"
@@ -64,9 +66,11 @@
             android:id="@+id/textView3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:fontFamily="monospace"
             android:text="Sensors"
             android:textAlignment="center"
-            android:textSize="34sp" />
+            android:textSize="34sp"
+            android:typeface="monospace" />
 
         <Space
             android:layout_width="match_parent"
@@ -78,7 +82,8 @@
             android:layout_height="wrap_content"
             android:text="Fragments"
             android:textAlignment="center"
-            android:textSize="34sp" />
+            android:textSize="34sp"
+            android:typeface="monospace" />
 
         <Space
             android:layout_width="match_parent"
@@ -90,7 +95,8 @@
             android:layout_height="wrap_content"
             android:text="RecyclerView"
             android:textAlignment="center"
-            android:textSize="34sp" />
+            android:textSize="34sp"
+            android:typeface="monospace" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
