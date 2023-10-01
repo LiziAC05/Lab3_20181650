@@ -10,7 +10,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical">
 
         <TextView
@@ -24,13 +24,13 @@
         <Button
             android:id="@+id/btnGoToAcele"
             android:layout_width="match_parent"
-            android:layout_height="220dp"
+            android:layout_height="258dp"
             android:layout_weight="1"
             android:text="Ir a Acelerómetro" />
 
-        <Space
+        <androidx.recyclerview.widget.RecyclerView
             android:layout_width="match_parent"
-            android:layout_height="500dp" />
+            android:layout_height="508dp" />
 
     </LinearLayout>
 

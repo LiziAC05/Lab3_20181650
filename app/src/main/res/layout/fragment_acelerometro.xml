@@ -23,13 +23,13 @@
         <Button
             android:id="@+id/btnGoToMagneto"
             android:layout_width="match_parent"
-            android:layout_height="153dp"
+            android:layout_height="202dp"
             android:layout_weight="1"
             android:text="Ir a Magnetómetro" />
 
-        <Space
+        <androidx.recyclerview.widget.RecyclerView
             android:layout_width="match_parent"
-            android:layout_height="500dp" />
+            android:layout_height="506dp" />
 
     </LinearLayout>
 </FrameLayout>
