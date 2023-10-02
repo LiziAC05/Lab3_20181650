@@ -4,6 +4,8 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -16,6 +18,10 @@ public class RandomUserAdapter extends RecyclerView.Adapter<RandomUserAdapter.Ra
     private List<Result> listaResult;
     private Context context;
 
+    Result contact;
+    public RandomUserAdapter(List<Result> listaResult){
+        this.listaResult = listaResult;
+    }
     @NonNull
     @Override
     public RandomUserViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType){
@@ -29,14 +35,32 @@ public class RandomUserAdapter extends RecyclerView.Adapter<RandomUserAdapter.Ra
     }
     @Override
     public void onBindViewHolder(@NonNull RandomUserViewHolder holder, int position) {
-        Result contact = listaResult.get(position);
+        contact = listaResult.get(position);
         holder.result = contact;
+        TextView txtName = holder.itemView.findViewById(R.id.txtName);
+        TextView txtGender = holder.itemView.findViewById(R.id.txtGender);
+        TextView txtCity = holder.itemView.findViewById(R.id.txtCity);
+        TextView txtCountry = holder.itemView.findViewById(R.id.txtCountry);
+        TextView txtEmail = holder.itemView.findViewById(R.id.txtEmail);
+        TextView txtPhone = holder.itemView.findViewById(R.id.txtPhone);
 
+        txtName.setText(contact.getName().getTitle()+ " " + contact.getName().getFirst() + " " +contact.getName().getLast());
+        txtGender.setText(contact.getGender());
+        txtCity.setText(contact.getLocation().getCity());
+        txtCountry.setText(contact.getLocation().getCountry());
+        txtEmail.setText(contact.getEmail());
+        txtPhone.setText(contact.getPhone());
     }
     public class RandomUserViewHolder extends RecyclerView.ViewHolder{
         Result result;
         public RandomUserViewHolder(@NonNull View itemView){
             super(itemView);
+            ImageButton delete = itemView.findViewById(R.id.imageButton);
+            delete.setOnClickListener(view ->{
+                int position = listaResult.indexOf(contact);
+                listaResult.remove(position);
+                notifyItemRemoved(position);
+            });
         }
 
     }

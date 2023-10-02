@@ -9,6 +9,6 @@ import retrofit2.http.GET;
 
 public interface RandomUser {
     @GET("/api/")
-    Call<List<Result>> getResults();
+    Call<com.example.lab3_iot.dto.RandomUser> getResults();
 
 }
