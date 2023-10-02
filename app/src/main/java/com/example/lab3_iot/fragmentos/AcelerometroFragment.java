@@ -9,7 +9,6 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.widget.NestedScrollView;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -20,6 +19,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.Toast;
 
 import com.example.lab3_iot.R;
@@ -37,11 +37,11 @@ public class AcelerometroFragment extends Fragment {
     List<Result> listaResult = new ArrayList<>();
     RandomUserAdapter randomUserAdapter;
     FragmentAcelerometroBinding binding;
-
     SensorManager sensorManagerA;
     Sensor acelerometroS;
     SensorEventListener sensorEventListAcelero;
-    NestedScrollView desplazarse;
+    float lastAce = 0.0f;
+    static final float SHAKE_THRESHOLD = 10.0f; //Para considerar agitación
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -68,17 +68,18 @@ public class AcelerometroFragment extends Fragment {
                     float y = event.values[1];
                     float z = event.values[2];
 
-
-                    Toast.makeText(getActivity(), "x: " + x + " | y: " + y + " | z: " + z, Toast.LENGTH_SHORT).show();
+                    float totalAce = (float) Math.sqrt((x*x)+(y*y)+(z*z));
+                    if(Math.abs(totalAce-lastAce) > SHAKE_THRESHOLD){
+                        recyclerview.smoothScrollBy(0, 100);
+                    }
+                    lastAce = totalAce;
+                    Toast.makeText(getActivity(), "Su aceleración: " + totalAce + "m/s^2", Toast.LENGTH_SHORT).show();
                 }
 
                 @Override
                 public void onAccuracyChanged(Sensor sensor, int accuracy) {
-                    // Se llama cuando cambia la precisión del sensor.
                 }
             };
-
-            // Registrar el oyente del acelerómetro
             sensorManagerA.registerListener(sensorEventListAcelero, acelerometroS, SensorManager.SENSOR_DELAY_NORMAL);
         } else {
             Toast.makeText(getActivity(), "Su equipo no dispone de acelerómetro",Toast.LENGTH_SHORT).show();
