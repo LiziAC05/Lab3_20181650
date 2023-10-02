@@ -7,6 +7,7 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
 
+import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -43,6 +44,7 @@ public class AppActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_app);
         createRandomUserService();
+
         Button btnAdd = findViewById(R.id.btnAdd);
         btnGoToSensor = findViewById(R.id.btnGoToSensor);
         btnAdd.setOnClickListener(new View.OnClickListener() {

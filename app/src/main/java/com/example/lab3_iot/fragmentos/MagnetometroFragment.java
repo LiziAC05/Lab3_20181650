@@ -1,5 +1,10 @@
 package com.example.lab3_iot.fragmentos;
 
+import android.content.Context;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -16,6 +21,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.example.lab3_iot.R;
 import com.example.lab3_iot.RandomUserAdapter;
@@ -31,11 +37,16 @@ public class MagnetometroFragment extends Fragment {
     RecyclerView recyclerview;
     List<Result> listaResult = new ArrayList<>();
     RandomUserAdapter randomUserAdapter;
+    SensorManager sensorManagerM;
+    Sensor magnetometroS;
 
+    SensorEventListener sensorEventListMagneto;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = FragmentMagnetometroBinding.inflate(inflater,container,false);
+        sensorManagerM= (SensorManager) getActivity().getSystemService(Context.SENSOR_SERVICE);
+        magnetometroS = sensorManagerM.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD);
 
         MainActivityViewModel mainActivityViewModel = new ViewModelProvider(getActivity()).get(MainActivityViewModel.class);
         mainActivityViewModel.getListMutableLiveData().observe(getViewLifecycleOwner(), contactos -> {
@@ -47,6 +58,28 @@ public class MagnetometroFragment extends Fragment {
                 Log.d("nombre",name);
             }
         });
+
+        if(magnetometroS != null){
+            Toast.makeText(getActivity(), "Usted está en el magnetómetro",Toast.LENGTH_SHORT).show();
+
+            sensorEventListMagneto = new SensorEventListener() {
+                @Override
+                public void onSensorChanged(SensorEvent sensorEvent) {
+                    float magneticX = sensorEvent.values[0];
+                    float magneticY = sensorEvent.values[1];
+                    float magneticZ = sensorEvent.values[2];
+
+                }
+
+                @Override
+                public void onAccuracyChanged(Sensor sensor, int i) {
+                    //cambio de presicion del sensor
+                }
+            };
+            sensorManagerM.registerListener(sensorEventListMagneto, magnetometroS, SensorManager.SENSOR_DELAY_NORMAL);
+        } else{
+            Toast.makeText(getActivity(), "Su equipo no dispone de Magnetómetro",Toast.LENGTH_SHORT).show();
+        }
         return binding.getRoot();
     }
 
@@ -59,7 +92,12 @@ public class MagnetometroFragment extends Fragment {
         recyclerview.setAdapter(randomUserAdapter);
 
     }
-
+    @Override
+    public void onPause() {
+        super.onPause();
+        // Detener la escucha del magnetómetro al cambiar de fragmento
+        sensorManagerM.unregisterListener(sensorEventListMagneto);
+    }
     public void actualizaListaM(List<Result> results){
         this.listaResult.clear();
         this.listaResult.addAll(results);
