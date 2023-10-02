@@ -5,13 +5,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.lab3_iot.dto.RandomUser;
 import com.example.lab3_iot.dto.Result;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class RandomUserAdapter extends RecyclerView.Adapter<RandomUserAdapter.RandomUserViewHolder> {
@@ -19,8 +22,10 @@ public class RandomUserAdapter extends RecyclerView.Adapter<RandomUserAdapter.Ra
     private Context context;
 
     Result contact;
-    public RandomUserAdapter(List<Result> listaResult){
+    RandomUser randomUser;
+    public RandomUserAdapter(List<Result> listaResult, Context context){
         this.listaResult = listaResult;
+        this.context = context;
     }
     @NonNull
     @Override
@@ -43,26 +48,28 @@ public class RandomUserAdapter extends RecyclerView.Adapter<RandomUserAdapter.Ra
         TextView txtCountry = holder.itemView.findViewById(R.id.txtCountry);
         TextView txtEmail = holder.itemView.findViewById(R.id.txtEmail);
         TextView txtPhone = holder.itemView.findViewById(R.id.txtPhone);
-
+        ImageView imageView = holder.itemView.findViewById(R.id.imageViewContact);
         txtName.setText(contact.getName().getTitle()+ " " + contact.getName().getFirst() + " " +contact.getName().getLast());
-        txtGender.setText(contact.getGender());
-        txtCity.setText(contact.getLocation().getCity());
-        txtCountry.setText(contact.getLocation().getCountry());
-        txtEmail.setText(contact.getEmail());
-        txtPhone.setText(contact.getPhone());
+        txtGender.setText("Gender: "+contact.getGender());
+        txtCity.setText("City: "+contact.getLocation().getCity());
+        txtCountry.setText("Country: "+contact.getLocation().getCountry());
+        txtEmail.setText("Email: "+contact.getEmail());
+        txtPhone.setText("Phone: "+contact.getPhone());
+
+
     }
-    public class RandomUserViewHolder extends RecyclerView.ViewHolder{
+    public class RandomUserViewHolder extends RecyclerView.ViewHolder {
         Result result;
-        public RandomUserViewHolder(@NonNull View itemView){
+
+        public RandomUserViewHolder(@NonNull View itemView) {
             super(itemView);
             ImageButton delete = itemView.findViewById(R.id.imageButton);
-            delete.setOnClickListener(view ->{
+            delete.setOnClickListener(view -> {
                 int position = listaResult.indexOf(contact);
                 listaResult.remove(position);
                 notifyItemRemoved(position);
             });
         }
-
     }
 
     public List<Result> getListaResult() {

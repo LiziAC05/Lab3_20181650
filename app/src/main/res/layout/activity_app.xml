@@ -8,6 +8,7 @@
     tools:context=".AppActivity">
 
     <LinearLayout
+        android:id="@+id/btnActivity"
         android:layout_width="372dp"
         android:layout_height="54dp"
         android:layout_marginStart="8dp"
@@ -31,7 +32,8 @@
             android:id="@+id/btnGoToSensor"
             android:layout_width="197dp"
             android:layout_height="wrap_content"
-            android:text="Button" />
+            android:text="IR AL MAGNETÓMETRO"
+            android:textSize="12sp" />
 
         <Button
             android:id="@+id/btnAdd"
@@ -44,13 +46,11 @@
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/fragmentContainerView2"
-        android:name="androidx.navigation.fragment.NavHostFragment"
-        android:layout_width="600dp"
-        android:layout_height="615dp"
-        app:defaultNavHost="true"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:navGraph="@navigation/nav_graph" />
+        android:name="com.example.lab3_iot.fragmentos.AcelerometroFragment"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_above="@+id/btnActivity"
+        android:layout_marginTop="4dp"
+        app:layout_constraintVertical_bias="0.1"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

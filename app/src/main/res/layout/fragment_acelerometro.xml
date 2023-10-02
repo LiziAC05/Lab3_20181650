@@ -20,13 +20,6 @@
             android:textAlignment="center"
             android:textSize="34sp" />
 
-        <Button
-            android:id="@+id/btnGoToMagneto"
-            android:layout_width="match_parent"
-            android:layout_height="202dp"
-            android:layout_weight="1"
-            android:text="Ir a Magnetómetro" />
-
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycledview2"
             android:layout_width="match_parent"

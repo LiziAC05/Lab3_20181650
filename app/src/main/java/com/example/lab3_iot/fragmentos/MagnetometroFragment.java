@@ -11,6 +11,7 @@ import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,23 +23,29 @@ import com.example.lab3_iot.databinding.FragmentMagnetometroBinding;
 import com.example.lab3_iot.dto.Result;
 import com.example.lab3_iot.viewmodel.MainActivityViewModel;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MagnetometroFragment extends Fragment {
     FragmentMagnetometroBinding binding;
     RecyclerView recyclerview;
-    List<Result> listaResult;
+    List<Result> listaResult = new ArrayList<>();
+    RandomUserAdapter randomUserAdapter;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = FragmentMagnetometroBinding.inflate(inflater,container,false);
-        binding.btnGoToAcele.setOnClickListener(view -> {
-            NavController navController = NavHostFragment.findNavController(MagnetometroFragment.this);
-            navController.navigate(R.id.action_magnetometroFragment_to_acelerometroFragment);
-        });
+
         MainActivityViewModel mainActivityViewModel = new ViewModelProvider(getActivity()).get(MainActivityViewModel.class);
         mainActivityViewModel.getListMutableLiveData().observe(getViewLifecycleOwner(), contactos -> {
-
+            for(Result r : contactos){
+                String title = r.getName().getTitle();
+                String first = r.getName().getFirst();
+                String last = r.getName().getLast();
+                String name = title+" "+first+" "+last;
+                Log.d("nombre",name);
+            }
         });
         return binding.getRoot();
     }
@@ -48,10 +55,14 @@ public class MagnetometroFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         recyclerview = view.findViewById(R.id.recyclerview1);
         recyclerview.setLayoutManager(new LinearLayoutManager(getContext()));
-        recyclerview.setHasFixedSize(true);
-        RandomUserAdapter randomUserAdapter = new RandomUserAdapter(listaResult);
+        randomUserAdapter = new RandomUserAdapter(listaResult, getContext());
         recyclerview.setAdapter(randomUserAdapter);
-        randomUserAdapter.notifyDataSetChanged();
 
+    }
+
+    public void actualizaListaM(List<Result> results){
+        this.listaResult.clear();
+        this.listaResult.addAll(results);
+        randomUserAdapter.notifyDataSetChanged();
     }
 }

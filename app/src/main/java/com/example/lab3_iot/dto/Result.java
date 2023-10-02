@@ -1,6 +1,8 @@
 package com.example.lab3_iot.dto;
 
-public class Result {
+import java.io.Serializable;
+
+public class Result implements Serializable {
     private String gender;
     private Name name;
     private Location location;
