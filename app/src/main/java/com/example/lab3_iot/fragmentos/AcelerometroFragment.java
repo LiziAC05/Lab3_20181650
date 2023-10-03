@@ -41,7 +41,7 @@ public class AcelerometroFragment extends Fragment {
     Sensor acelerometroS;
     SensorEventListener sensorEventListAcelero;
     float lastAce = 0.0f;
-    static final float SHAKE_THRESHOLD = 10.0f; //Para considerar agitación
+    static final float SHAKE_THRESHOLD = 9.90f; //Para considerar agitación
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -60,7 +60,7 @@ public class AcelerometroFragment extends Fragment {
         sensorManagerA= (SensorManager) getActivity().getSystemService(Context.SENSOR_SERVICE);
         acelerometroS = sensorManagerA.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
         if (acelerometroS != null) {
-            Toast.makeText(getActivity(), "Usted está en el Acelerómetro",Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), "Usted está en el Acelerómetro",Toast.LENGTH_LONG).show();
             sensorEventListAcelero = new SensorEventListener() {
                 @Override
                 public void onSensorChanged(SensorEvent event) {
@@ -70,10 +70,13 @@ public class AcelerometroFragment extends Fragment {
 
                     float totalAce = (float) Math.sqrt((x*x)+(y*y)+(z*z));
                     if(Math.abs(totalAce-lastAce) > SHAKE_THRESHOLD){
-                        recyclerview.smoothScrollBy(0, 100);
+                        recyclerview.scrollBy(1,1);
                     }
                     lastAce = totalAce;
-                    Toast.makeText(getActivity(), "Su aceleración: " + totalAce + "m/s^2", Toast.LENGTH_SHORT).show();
+                    Log.d("aceleration", String.valueOf(totalAce));
+                    Log.d("threshold", String.valueOf(SHAKE_THRESHOLD));
+                    Toast.makeText(getActivity(), "Su aceleración: " + totalAce + "m/s^2", Toast.LENGTH_LONG).show();
+
                 }
 
                 @Override

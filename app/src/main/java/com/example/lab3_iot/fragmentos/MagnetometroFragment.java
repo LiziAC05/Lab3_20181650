@@ -59,21 +59,34 @@ public class MagnetometroFragment extends Fragment {
             }
         });
 
-        if(magnetometroS != null){
-            Toast.makeText(getActivity(), "Usted está en el magnetómetro",Toast.LENGTH_SHORT).show();
+        if(magnetometroS != null) {
+            Toast.makeText(getActivity(), "Usted está en el magnetómetro", Toast.LENGTH_SHORT).show();
 
             sensorEventListMagneto = new SensorEventListener() {
                 @Override
                 public void onSensorChanged(SensorEvent sensorEvent) {
-                    float magneticX = sensorEvent.values[0];
-                    float magneticY = sensorEvent.values[1];
-                    float magneticZ = sensorEvent.values[2];
+                    float x = sensorEvent.values[0];
+                    float y = sensorEvent.values[1];
+                    /*Log.d("x", String.valueOf(x));
+                    Log.d("y", String.valueOf(y));
+                    Log.d("z", String.valueOf(z));*/
+                    float anguloMinimo = 0.0f;
+                    float anguloMaximo = 90.0f;
+                    double anguloRadianes = Math.atan2(y, x);
+                    double anguloSexagesimal = Math.toDegrees(anguloRadianes);
+                    if (anguloSexagesimal < 0){
+                        anguloSexagesimal+=360;
+                    }
+                    float opacidad = Math.max(0.0f, Math.min(1.0f, (float) ((anguloSexagesimal-anguloMinimo)/(anguloMaximo-anguloMinimo))));
+                    for(int i = 0; i<recyclerview.getChildCount(); i++){
+                        View child = recyclerview.getChildAt(i);
+                        child.setAlpha(1.0f - opacidad);
+                    }
+            }
 
-                }
 
                 @Override
                 public void onAccuracyChanged(Sensor sensor, int i) {
-                    //cambio de presicion del sensor
                 }
             };
             sensorManagerM.registerListener(sensorEventListMagneto, magnetometroS, SensorManager.SENSOR_DELAY_NORMAL);

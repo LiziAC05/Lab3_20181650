@@ -1,5 +1,6 @@
 package com.example.lab3_iot;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
@@ -14,6 +15,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 
 import com.example.lab3_iot.databinding.FragmentMagnetometroBinding;
 import com.example.lab3_iot.dto.Name;
@@ -44,7 +46,7 @@ public class AppActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_app);
         createRandomUserService();
-
+        ImageButton ojito = findViewById(R.id.imBtnDetail);
         Button btnAdd = findViewById(R.id.btnAdd);
         btnGoToSensor = findViewById(R.id.btnGoToSensor);
         btnAdd.setOnClickListener(new View.OnClickListener() {
@@ -71,28 +73,6 @@ public class AppActivity extends AppCompatActivity {
                             }
 
                         }
-                        /*Log.d("mensaje1", String.valueOf(listaContactos1.size()));
-                        for(Result r : listaContactos1){
-                            String title = r.getName().getTitle();
-                            String first = r.getName().getFirst();
-                            String last = r.getName().getLast();
-                            String name = title+" "+first+" "+last;
-                            String gender = r.getGender();
-                            String city = r.getLocation().getCity();
-                            String country = r.getLocation().getCountry();
-                            String email = r.getEmail();
-                            String phone = r.getPhone();
-                            String large = r.getPicture().getLarge();
-                            Log.d("nombre",name);
-                            r.setName(new Name(title, first, last));
-                            r.getName().setFirst(first);
-                            r.getName().setLast(last);
-                            r.setGender(gender);
-                            r.setEmail(email);
-                            r.setPhone(phone);
-                        }*/
-
-                        //mainActivityViewModel.getListMutableLiveData().setValue(listaContactos);
                     }
 
                     @Override
@@ -112,6 +92,25 @@ public class AppActivity extends AppCompatActivity {
                 btnGoToSensor.setText("IR AL MAGNETÓMETRO");
             }
         });
+        ojito.setOnClickListener(view -> {
+            Fragment fragmentoActual = getSupportFragmentManager().findFragmentById(R.id.fragmentContainerView2);
+            if(fragmentoActual instanceof AcelerometroFragment){
+                AlertDialog.Builder alertDialogAce = new AlertDialog.Builder(this);
+                alertDialogAce.setTitle("Detalles - Acelerómetro");
+                alertDialogAce.setMessage("Haga CLICK en 'Añadir' para agregar contactos a su lista. Esta aplicación está utilizando el ACELERÓMETRO de su dispositivo." +
+                        "De esta forma, la lista hará scroll hacia abajo, cuando agite su dispositivo");
+                alertDialogAce.setNeutralButton("Aceptar", ((dialogInterface, i) -> {}));
+                alertDialogAce.show();
+            } else if(fragmentoActual instanceof MagnetometroFragment){
+                AlertDialog.Builder alertDialogMag = new AlertDialog.Builder(this);
+                alertDialogMag.setTitle("Detalles - Magnetómetro");
+                alertDialogMag.setMessage("Haga CLICK en 'Añadir' para agregar contactos a su lista. Esta aplicación está utilizando el MAGNETÓMETRO de su dispositivo." +
+                        "De esta forma, la lista se mostrará al 100% cuando se apunte al NORTE, caso contrario, se desvanecerá");
+                alertDialogMag.setNeutralButton("Aceptar", ((dialogInterface, i) -> {}));
+                alertDialogMag.show();
+            }
+        });
+
     }
 
     public void createRandomUserService(){
