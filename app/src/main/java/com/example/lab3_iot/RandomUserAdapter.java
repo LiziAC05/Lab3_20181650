@@ -16,7 +16,7 @@ import com.example.lab3_iot.dto.Result;
 
 import java.util.ArrayList;
 import java.util.List;
-
+import com.squareup.picasso.Picasso;
 public class RandomUserAdapter extends RecyclerView.Adapter<RandomUserAdapter.RandomUserViewHolder> {
     private List<Result> listaResult;
     private Context context;
@@ -49,6 +49,9 @@ public class RandomUserAdapter extends RecyclerView.Adapter<RandomUserAdapter.Ra
         TextView txtEmail = holder.itemView.findViewById(R.id.txtEmail);
         TextView txtPhone = holder.itemView.findViewById(R.id.txtPhone);
         ImageView imageView = holder.itemView.findViewById(R.id.imageViewContact);
+        Picasso.get()
+                .load(contact.getPicture().getLarge())
+                .into(imageView);
         txtName.setText(contact.getName().getTitle()+ " " + contact.getName().getFirst() + " " +contact.getName().getLast());
         txtGender.setText("Gender: "+contact.getGender());
         txtCity.setText("City: "+contact.getLocation().getCity());
